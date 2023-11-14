@@ -1,0 +1,123 @@
+{
+	"$schema": "./schema/typed-surrealql-v1.json",
+	"value": {
+		"type": "object",
+		"value": {
+			// Some basic values....
+			"string": {
+				"type": "string",
+				"value": "I am a string!"
+			},
+			"number": {
+				"type": "number",
+				"value": 12345
+			},
+			"object": {
+				"type": "object",
+				"value": {
+					"nested_string": {
+						"type": "string",
+						"value": "I am a string inside of an Object!"
+					}
+				}
+			},
+			// We can safely use the "type" and "value" properties inside objects aswell.
+			"object_difficult_props": {
+				"type": "object",
+				"value": {
+					"type": {
+						"type": "string",
+						"value": "The value of the object simply contains keys, and values with object that describe the nested values."
+					},
+					"value": {
+						"type": "string",
+						"value": "This means that it's not an issue to use \"type\" and \"value\" properties, inside of objects :)"
+					}
+				}
+			},
+			"array": {
+				"type": "array",
+				"value": [
+					{
+						"type": "string",
+						"value": "I am a string inside of an Array!"
+					},
+					{
+						"type": "number",
+						"value": 12345
+					},
+					{
+						"type": "object",
+						"value": {
+							"some_toggle": {
+								"type": "boolean",
+								"value": true
+							}
+						}
+					}
+				]
+			},
+			// Try to change the date by making it invalid, notice how the value is suddenly no longer accepted.
+			"date": {
+				"type": "date",
+				"value": "2023-11-08T11:13:59.953Z"
+			},
+			// This will not get converted into a date, as it's a string.
+			"value": {
+				"type": "string",
+				"value": "2023-11-08T11:13:59.953Z"
+			},
+			// tb is always a string, id is either a string, number, object or array.
+			"record": {
+				"type": "record",
+				"value": {
+					"tb": "user",
+					"id": {
+						"type": "string",
+						"value": "john"
+					}
+				}
+			},
+			// ... showcasing an array as a record ID.
+			"complex": {
+				"type": "record",
+				"value": {
+					"tb": "user",
+					"id": {
+						"type": "array",
+						"value": [
+							{
+								"type": "number",
+								"value": 123
+							},
+							{
+								"type": "object",
+								"value": {
+									"test": {
+										"type": "number",
+										"value": 2
+									}
+								}
+							}
+						]
+					}
+				}
+			},
+			// Also sets. Only downside is that we can't enforce uniqueness with the schema, but that's fine.
+			// When you cast an array to a set, data is also silently dropped, so it's fine :D
+			"set": {
+				"type": "set",
+				"value": [
+					{
+						"type": "number",
+						"value": 0
+					},
+					{
+						"type": "number",
+						"value": 2
+					}
+				]
+			}
+		}
+	}
+}
